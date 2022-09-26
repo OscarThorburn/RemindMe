@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   label: {
-    fontSize: 12,
-    color: GlobalStyles.colors.primaryLight,
+    fontSize: 18,
+    color: GlobalStyles.colors.primaryDark,
     marginBottom: 4,
   },
   input: {
     backgroundColor: GlobalStyles.colors.secondaryDark,
-    color: GlobalStyles.colors.secondaryLight,
+    color: GlobalStyles.colors.primaryLight,
     padding: 6,
     borderRadius: 6,
     fontSize: 18,
