@@ -37,6 +37,7 @@ function ManageReminder({ route, navigation }) {
     } else {
       reminderCtx.addReminder(reminderData);
     }
+    console.log(reminderData)
     navigation.goBack();
   }
 

@@ -19,11 +19,26 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     remindTime: {
       value: defaultValues ? getFormattedDate(defaultValues.remindTime) : "",
     },
-  });
+  });  
 
-  function submitHandler() {}
+  function inputChangeHandler(inputIdentifier, enteredValue) {
+    setInputs((curInputs) => {
+      return {
+        ...curInputs,
+        [inputIdentifier]: { value: enteredValue, isValid: true },
+      };
+    });
+  }
 
-  function inputChangeHandler(inputIdentifier, enteredValue) {}
+  function submitHandler() {
+    const reminderData = {
+      title: inputs.title.value,
+      body: inputs.body.value,
+      remindTime: new Date("2022-10-29T17:00:00"),
+    };
+
+    onSubmit(reminderData);
+  }
 
   return (
     <View style={styles.form}>
@@ -34,6 +49,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           invalid={false}
           textInputConfig={{
             value: inputs.title.value,
+            onChangeText: inputChangeHandler.bind(this, 'title'),
           }}
         />
         <Input
@@ -43,14 +59,17 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           textInputConfig={{
             value: inputs.body.value,
             multiline: true,
+            onChangeText: inputChangeHandler.bind(this, 'body'),
           }}
         />
         <Input
           style={styles.dateInput}
-          label="YYYY-MM-DD HH:MM"
+          label="2022-10-21T15:55:00"
           invalid={false}
           textInputConfig={{
+            placeholder: "2022-10-21T15:55:00",
             value: inputs.remindTime.value,
+            onChangeText: inputChangeHandler.bind(this, 'remindTime'),
           }}
         />
       </View>

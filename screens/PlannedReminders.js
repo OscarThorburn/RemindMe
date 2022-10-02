@@ -9,7 +9,6 @@ function PlannedReminders() {
 
   const plannedReminders = remindersCtx.reminders.filter((reminder) => {
     const today = new Date();
-
     return reminder.remindTime >= today;
   });
 
