@@ -37,6 +37,7 @@ function ManageReminder({ route, navigation }) {
     } else {
       reminderCtx.addReminder(reminderData);
     }
+    console.log(reminderData);
     navigation.goBack();
   }
 
@@ -48,16 +49,16 @@ function ManageReminder({ route, navigation }) {
         onCancel={cancelHandler}
         defaultValues={selectedReminder}
       />
-      {isEditing && (
-        <View style={styles.deleteContainer}>
+      <View style={styles.deleteContainer}>
+        {isEditing && (
           <IconButton
             icon="trash"
             color={"red"}
             size={36}
             onPress={deleteExpenseHandler}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 }

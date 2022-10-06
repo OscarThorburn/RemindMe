@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DUMMY_REMINDERS = [
   {
@@ -35,19 +36,19 @@ const DUMMY_REMINDERS = [
     id: "6",
     title: "Pickup Felicia",
     body: "Hanna needs to be picked up at the airport",
-    remindTime: new Date("2022-09-27T12:23:00"),
+    remindTime: new Date("2022-10-27T12:23:00"),
   },
   {
     id: "7",
     title: "Buy Milk",
     body: "Wer are out of milk",
-    remindTime: new Date("2022-09-29T17:00:00"),
+    remindTime: new Date("2022-10-29T17:00:00"),
   },
   {
     id: "8",
     title: "Take pills",
     body: "Remember to take your medicin Perlodox",
-    remindTime: new Date("2022-09-21T15:55:00"),
+    remindTime: new Date("2022-10-21T15:55:00"),
   },
 ];
 
