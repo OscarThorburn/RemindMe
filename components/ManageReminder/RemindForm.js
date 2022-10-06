@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 import Button from "../UI/Button";
+import IconButton from "../UI/IconButton";
 import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
 import { getFormattedDate } from "../../util/date";
 
 function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
+  const [date, setDate] = useState(new Date(1598051730000));
+
   const [inputs, setInputs] = useState({
     title: {
       value: defaultValues ? defaultValues.title : "",
@@ -19,7 +24,32 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     remindTime: {
       value: defaultValues ? getFormattedDate(defaultValues.remindTime) : "",
     },
-  });  
+  });
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      is24Hour: true,
+      display: "spinner",
+      minimumDate: new Date(),
+      style: styles.asd
+    });
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
+  };
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
     setInputs((curInputs) => {
@@ -49,7 +79,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           invalid={false}
           textInputConfig={{
             value: inputs.title.value,
-            onChangeText: inputChangeHandler.bind(this, 'title'),
+            onChangeText: inputChangeHandler.bind(this, "title"),
           }}
         />
         <Input
@@ -59,19 +89,23 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           textInputConfig={{
             value: inputs.body.value,
             multiline: true,
-            onChangeText: inputChangeHandler.bind(this, 'body'),
+            onChangeText: inputChangeHandler.bind(this, "body"),
           }}
         />
-        <Input
-          style={styles.dateInput}
-          label="2022-10-21T15:55:00"
-          invalid={false}
-          textInputConfig={{
-            placeholder: "2022-10-21T15:55:00",
-            value: inputs.remindTime.value,
-            onChangeText: inputChangeHandler.bind(this, 'remindTime'),
-          }}
-        />
+        <View style={styles.DateTimeButtons}>
+          <IconButton
+            icon="alarm-outline"
+            color={GlobalStyles.colors.primaryDark}
+            size={46}
+            onPress={showTimepicker}
+          />
+          <IconButton
+            icon="calendar-outline"
+            color={GlobalStyles.colors.primaryDark}
+            size={46}
+            onPress={showDatepicker}
+          />
+        </View>
       </View>
       <View style={styles.buttons}>
         <Button style={styles.button} onPress={onCancel}>
@@ -88,6 +122,15 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
 export default RemindForm;
 
 const styles = StyleSheet.create({
+  asd: {
+    backgroundColor: "coral",
+    color: "#000"
+  },
+  DateTimeButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 40
+  },
   buttons: {
     flexDirection: "row",
     justifyContent: "center",
