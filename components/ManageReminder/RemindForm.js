@@ -21,9 +21,6 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       value: defaultValues ? defaultValues.body : "",
       isValid: true,
     },
-    remindTime: {
-      value: defaultValues ? getFormattedDate(defaultValues.remindTime) : "",
-    },
   });
 
   const onChange = (event, selectedDate) => {
@@ -64,7 +61,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     const reminderData = {
       title: inputs.title.value,
       body: inputs.body.value,
-      remindTime: new Date("2022-10-29T17:00:00"),
+      remindTime: date,
     };
 
     onSubmit(reminderData);
