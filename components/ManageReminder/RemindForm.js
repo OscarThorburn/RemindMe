@@ -8,6 +8,7 @@ import IconButton from "../UI/IconButton";
 import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
 import { getFormattedDate } from "../../util/date";
+import { IsValidTile } from "../../util/validation";
 
 function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -36,7 +37,6 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       is24Hour: true,
       display: "spinner",
       minimumDate: new Date(),
-      style: styles.asd
     });
   };
 
@@ -64,8 +64,21 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       remindTime: date,
     };
 
+    const titleIsValid = IsValidTile(reminderData.title)
+
+    if(!titleIsValid){
+      setInputs((curInputs) => {
+        return {
+          title: { value: curInputs.title.value, isValid: titleIsValid },
+          body: curInputs.body,          
+        };
+      });
+      return;
+    }
     onSubmit(reminderData);
   }
+
+  
 
   return (
     <View style={styles.form}>
@@ -73,7 +86,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
         <Input
           style={styles.titleInput}
           label="Title"
-          invalid={false}
+          invalid={!inputs.title.isValid}
           textInputConfig={{
             value: inputs.title.value,
             onChangeText: inputChangeHandler.bind(this, "title"),
@@ -119,10 +132,6 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
 export default RemindForm;
 
 const styles = StyleSheet.create({
-  asd: {
-    backgroundColor: "coral",
-    color: "#000"
-  },
   DateTimeButtons: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
