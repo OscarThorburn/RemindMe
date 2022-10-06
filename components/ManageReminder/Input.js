@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   invalidInput: {
-    backgroundColor: "red",
+    borderColor: "red",
+    borderWidth: 2,
   },
 });
