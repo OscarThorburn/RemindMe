@@ -7,7 +7,6 @@ import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
 import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
-import { getFormattedDate, setByTimezone } from "../../util/date";
 import { IsValidTile } from "../../util/validation";
 
 function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
@@ -26,7 +25,6 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
-    console.log(currentDate)
     setDate(currentDate);
   };
 
