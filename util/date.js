@@ -4,3 +4,10 @@ export function getFormattedDate(date) {
   const formatedDate = trimmedDate.replace("-", "/");
   return formatedDate;
 }
+
+export function setByTimezone (selectedDate) {
+  const date = new Date(selectedDate)
+  const x = date.setHours(date.getHours + 2)
+  console.log(x)
+  return formatedDate
+}
