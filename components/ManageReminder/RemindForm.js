@@ -7,11 +7,11 @@ import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
 import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
-import { getFormattedDate } from "../../util/date";
+import { getFormattedDate, setByTimezone } from "../../util/date";
 import { IsValidTile } from "../../util/validation";
 
 function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
 
   const [inputs, setInputs] = useState({
     title: {
@@ -26,6 +26,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
+    console.log(currentDate)
     setDate(currentDate);
   };
 
@@ -37,6 +38,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       is24Hour: true,
       display: "spinner",
       minimumDate: new Date(),
+      timeZoneOffsetInMinutes: 0,
     });
   };
 
@@ -65,7 +67,7 @@ function RemindForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     };
 
     const titleIsValid = IsValidTile(reminderData.title)
-
+    
     if(!titleIsValid){
       setInputs((curInputs) => {
         return {

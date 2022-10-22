@@ -43,7 +43,6 @@ function RemindersContextProvider({ children }) {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("@storage_Key", jsonValue);
-      console.log(jsonValue)
     } catch (e) {
       console.log("error trying to store async")
     }
